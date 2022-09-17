@@ -30,99 +30,108 @@
     &#34;&#34;&#34;
     Класс для выполнения сортировок (быстрой и слиянием).
 
-    `arr` - переменная, хранящая исходный неотсортированный массив.
+    `list` - переменная, хранящая исходный неотсортированный список.
     &#34;&#34;&#34;
-    def __init__(self, arr):
-        self.arr = arr
+    def __init__(self, list):
+        self.list = list
 
     def do_quicksort(self):
         &#34;&#34;&#34;
            Метод, вызывающий метод быстрой сортировки.
+
+           На вход ничего не подаётся.
+
+           Возвращает отсортированный по возрастанию список.
         &#34;&#34;&#34;
-        return self.quicksort(self.arr)
+        return self.quicksort(self.list)
 
     def do_mergesort(self):
         &#34;&#34;&#34;
             Метод, вызывающий метод сортировки слиянием.
-        &#34;&#34;&#34;
-        return self.mergesort(self.arr)
 
-    def quicksort(self, arr):
+            На вход ничего не подаётся.
+
+            Возвращает отсортированный по возрастанию список.
+        &#34;&#34;&#34;
+        return self.mergesort(self.list)
+
+    def quicksort(self, list):
         &#34;&#34;&#34;
             **Метод быстрой сортировки.**
 
-            На вход подается неотсортированный массив `arr`.
+            На вход подается неотсортированный список `list`.
 
-            На выход - отсортированныый по возрастанию.
+            На выход - отсортированный по возрастанию.
 
 
             **Алгоритм сортировки:**
 
-            - Выбрать из массива элемент, называемый опорным - `pivot`.
+            - Выбрать из списка элемент, называемый опорным - `pivot`.
 
-            - Сравнить все остальные элементы с опорным и переставить их в массиве так, чтобы разбить массив на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (`lesser`), «равные» и «большие» (`greater`).
+            - Сравнить все остальные элементы с опорным и переставить их в списке так, чтобы разбить список на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (`lesser`), «равные» и «большие» (`greater`).
 
             - Для отрезков «меньших» и «больших» значений выполнить рекурсивно ту же последовательность операций, если длина отрезка больше единицы.
 
-            - Вернуть отсортированный по возрастанию массив.
+            - Вернуть отсортированный по возрастанию список.
         &#34;&#34;&#34;
         lesser = []
         greater = []
-        pivot = arr[0]
-        for i in range(len(arr)):
-            if arr[i] &lt; pivot:
-                lesser.append(arr[i])
-            if arr[i] &gt; pivot:
-                greater.append(arr[i])
+        pivot = list[0]
+        for i in range(len(list)):
+            if list[i] &lt; pivot:
+                lesser.append(list[i])
+            if list[i] &gt; pivot:
+                greater.append(list[i])
         if lesser:
             lesser = self.quicksort(lesser)
         if greater:
             greater = self.quicksort(greater)
         return lesser + [pivot] + greater
 
-    def mergesort(self, arr):
+    def mergesort(self, list):
         &#34;&#34;&#34;
             **Метод сортировки слиянием.**
 
-            На вход подается неотсортированный массив `arr`.
+            На вход подается неотсортированный список `list`.
 
-            На выход отсортированныый по возрастанию `sorted_arr`.
+            На выход - отсортированный по возрастанию `sorted_list`.
 
 
             **Алгоритм сортировки:**
 
-            - Сортируемый массив разбивается на две части примерно одинакового размера (`left`, `right`).
+            - Сортируемый список разбивается на две части примерно одинакового размера (`left`, `right`).
 
             - Каждая из получившихся частей сортируется отдельно тем же алгоритмом.
 
-            - Два упорядоченных массива половинного размера соединяются в один.
+            - Два упорядоченных списка половинного размера соединяются в один.
 
-            - Возвращается отсортированный по возрастанию массив.
+            - Возвращается отсортированный по возрастанию список.
         &#34;&#34;&#34;
-        if len(arr) == 1 or len(arr) == 0:
-            return arr
-        left = self.mergesort(arr[:len(arr) // 2])
-        right = self.mergesort(arr[(len(arr) // 2) + 1:])
+        if len(list) == 1 or len(list) == 0:
+            return list
+        left = self.mergesort(list[:len(list) // 2])
+        right = self.mergesort(list[(len(list) // 2) + 1:])
         n = m = 0
-        sorted_arr = []
+        sorted_list = []
         while n &lt; len(left) and m &lt; len(right):
             if left[n] &lt;= right[m]:
-                sorted_arr.append(left[n])
+                sorted_list.append(left[n])
                 n += 1
             else:
-                sorted_arr.append(right[m])
+                sorted_list.append(right[m])
                 m += 1
         while n &lt; len(left):
-            sorted_arr.append(left[n])
+            sorted_list.append(left[n])
             n += 1
         while m &lt; len(right):
-            sorted_arr.append(right[m])
+            sorted_list.append(right[m])
             m += 1
-        return sorted_arr
+        return sorted_list
 
 
 if __name__ == &#39;__main__&#39;:
-    a = Sorting([1, 2, -10, 787, 4, 21])
+    list = [1, 2, -10, 787, 4, 21]
+    a = Sorting(list)
     print(a.do_mergesort())
     print(a.do_quicksort())</code></pre>
 </details>
@@ -138,11 +147,11 @@ if __name__ == &#39;__main__&#39;:
 <dl>
 <dt id="sort.Sorting"><code class="flex name class">
 <span>class <span class="ident">Sorting</span></span>
-<span>(</span><span>arr)</span>
+<span>(</span><span>list)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Класс для выполнения сортировок (быстрой и слиянием).</p>
-<p><code>arr</code> - переменная, хранящая исходный неотсортированный массив.</p></div>
+<p><code>list</code> - переменная, хранящая исходный неотсортированный список.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -151,95 +160,103 @@ if __name__ == &#39;__main__&#39;:
     &#34;&#34;&#34;
     Класс для выполнения сортировок (быстрой и слиянием).
 
-    `arr` - переменная, хранящая исходный неотсортированный массив.
+    `list` - переменная, хранящая исходный неотсортированный список.
     &#34;&#34;&#34;
-    def __init__(self, arr):
-        self.arr = arr
+    def __init__(self, list):
+        self.list = list
 
     def do_quicksort(self):
         &#34;&#34;&#34;
            Метод, вызывающий метод быстрой сортировки.
+
+           На вход ничего не подаётся.
+
+           Возвращает отсортированный по возрастанию список.
         &#34;&#34;&#34;
-        return self.quicksort(self.arr)
+        return self.quicksort(self.list)
 
     def do_mergesort(self):
         &#34;&#34;&#34;
             Метод, вызывающий метод сортировки слиянием.
-        &#34;&#34;&#34;
-        return self.mergesort(self.arr)
 
-    def quicksort(self, arr):
+            На вход ничего не подаётся.
+
+            Возвращает отсортированный по возрастанию список.
+        &#34;&#34;&#34;
+        return self.mergesort(self.list)
+
+    def quicksort(self, list):
         &#34;&#34;&#34;
             **Метод быстрой сортировки.**
 
-            На вход подается неотсортированный массив `arr`.
+            На вход подается неотсортированный список `list`.
 
-            На выход - отсортированныый по возрастанию.
+            На выход - отсортированный по возрастанию.
 
 
             **Алгоритм сортировки:**
 
-            - Выбрать из массива элемент, называемый опорным - `pivot`.
+            - Выбрать из списка элемент, называемый опорным - `pivot`.
 
-            - Сравнить все остальные элементы с опорным и переставить их в массиве так, чтобы разбить массив на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (`lesser`), «равные» и «большие» (`greater`).
+            - Сравнить все остальные элементы с опорным и переставить их в списке так, чтобы разбить список на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (`lesser`), «равные» и «большие» (`greater`).
 
             - Для отрезков «меньших» и «больших» значений выполнить рекурсивно ту же последовательность операций, если длина отрезка больше единицы.
 
-            - Вернуть отсортированный по возрастанию массив.
+            - Вернуть отсортированный по возрастанию список.
         &#34;&#34;&#34;
         lesser = []
         greater = []
-        pivot = arr[0]
-        for i in range(len(arr)):
-            if arr[i] &lt; pivot:
-                lesser.append(arr[i])
-            if arr[i] &gt; pivot:
-                greater.append(arr[i])
+        pivot = list[0]
+        for i in range(len(list)):
+            if list[i] &lt; pivot:
+                lesser.append(list[i])
+            if list[i] &gt; pivot:
+                greater.append(list[i])
         if lesser:
             lesser = self.quicksort(lesser)
         if greater:
             greater = self.quicksort(greater)
         return lesser + [pivot] + greater
 
-    def mergesort(self, arr):
+    def mergesort(self, list):
         &#34;&#34;&#34;
             **Метод сортировки слиянием.**
 
-            На вход подается неотсортированный массив `arr`.
+            На вход подается неотсортированный список `list`.
 
-            На выход отсортированныый по возрастанию `sorted_arr`.
+            На выход - отсортированный по возрастанию `sorted_list`.
 
 
             **Алгоритм сортировки:**
 
-            - Сортируемый массив разбивается на две части примерно одинакового размера (`left`, `right`).
+            - Сортируемый список разбивается на две части примерно одинакового размера (`left`, `right`).
 
             - Каждая из получившихся частей сортируется отдельно тем же алгоритмом.
 
-            - Два упорядоченных массива половинного размера соединяются в один.
+            - Два упорядоченных списка половинного размера соединяются в один.
 
-            - Возвращается отсортированный по возрастанию массив.
+            - Возвращается отсортированный по возрастанию список.
         &#34;&#34;&#34;
-        if len(arr) == 1 or len(arr) == 0:
-            return arr
-        left = self.mergesort(arr[:len(arr) // 2])
-        right = self.mergesort(arr[(len(arr) // 2) + 1:])
+        if len(list) == 1 or len(list) == 0:
+            return list
+        left = self.mergesort(list[:len(list) // 2])
+        right = self.mergesort(list[(len(list) // 2) + 1:])
         n = m = 0
-        sorted_arr = []
+        sorted_list = []
         while n &lt; len(left) and m &lt; len(right):
             if left[n] &lt;= right[m]:
-                sorted_arr.append(left[n])
+                sorted_list.append(left[n])
                 n += 1
             else:
-                sorted_arr.append(right[m])
+                sorted_list.append(right[m])
                 m += 1
         while n &lt; len(left):
-            sorted_arr.append(left[n])
+            sorted_list.append(left[n])
             n += 1
         while m &lt; len(right):
-            sorted_arr.append(right[m])
+            sorted_list.append(right[m])
             m += 1
-        return sorted_arr</code></pre>
+        return sorted_list</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -247,7 +264,9 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">do_mergesort</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Метод, вызывающий метод сортировки слиянием.</p></div>
+<div class="desc"><p>Метод, вызывающий метод сортировки слиянием.</p>
+<p>На вход ничего не подаётся.</p>
+<p>Возвращает отсортированный по возрастанию список.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -255,15 +274,21 @@ if __name__ == &#39;__main__&#39;:
 <pre><code class="python">def do_mergesort(self):
     &#34;&#34;&#34;
         Метод, вызывающий метод сортировки слиянием.
+
+        На вход ничего не подаётся.
+
+        Возвращает отсортированный по возрастанию список.
     &#34;&#34;&#34;
-    return self.mergesort(self.arr)</code></pre>
+    return self.mergesort(self.list)</code></pre>
 </details>
 </dd>
 <dt id="sort.Sorting.do_quicksort"><code class="name flex">
 <span>def <span class="ident">do_quicksort</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Метод, вызывающий метод быстрой сортировки.</p></div>
+<div class="desc"><p>Метод, вызывающий метод быстрой сортировки.</p>
+<p>На вход ничего не подаётся.</p>
+<p>Возвращает отсортированный по возрастанию список.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -271,130 +296,134 @@ if __name__ == &#39;__main__&#39;:
 <pre><code class="python">def do_quicksort(self):
     &#34;&#34;&#34;
        Метод, вызывающий метод быстрой сортировки.
+
+       На вход ничего не подаётся.
+
+       Возвращает отсортированный по возрастанию список.
     &#34;&#34;&#34;
-    return self.quicksort(self.arr)</code></pre>
+    return self.quicksort(self.list)</code></pre>
 </details>
 </dd>
 <dt id="sort.Sorting.mergesort"><code class="name flex">
-<span>def <span class="ident">mergesort</span></span>(<span>self, arr)</span>
+<span>def <span class="ident">mergesort</span></span>(<span>self, list)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>Метод сортировки слиянием.</strong></p>
-<p>На вход подается неотсортированный массив <code>arr</code>.</p>
-<p>На выход отсортированныый по возрастанию <code>sorted_arr</code>.</p>
+<p>На вход подается неотсортированный список <code>list</code>.</p>
+<p>На выход - отсортированный по возрастанию <code>sorted_list</code>.</p>
 <p><strong>Алгоритм сортировки:</strong></p>
 <ul>
 <li>
-<p>Сортируемый массив разбивается на две части примерно одинакового размера (<code>left</code>, <code>right</code>).</p>
+<p>Сортируемый список разбивается на две части примерно одинакового размера (<code>left</code>, <code>right</code>).</p>
 </li>
 <li>
 <p>Каждая из получившихся частей сортируется отдельно тем же алгоритмом.</p>
 </li>
 <li>
-<p>Два упорядоченных массива половинного размера соединяются в один.</p>
+<p>Два упорядоченных списка половинного размера соединяются в один.</p>
 </li>
 <li>
-<p>Возвращается отсортированный по возрастанию массив.</p>
+<p>Возвращается отсортированный по возрастанию список.</p>
 </li>
 </ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mergesort(self, arr):
+<pre><code class="python">def mergesort(self, list):
     &#34;&#34;&#34;
         **Метод сортировки слиянием.**
 
-        На вход подается неотсортированный массив `arr`.
+        На вход подается неотсортированный список `list`.
 
-        На выход отсортированныый по возрастанию `sorted_arr`.
+        На выход - отсортированный по возрастанию `sorted_list`.
 
 
         **Алгоритм сортировки:**
 
-        - Сортируемый массив разбивается на две части примерно одинакового размера (`left`, `right`).
+        - Сортируемый список разбивается на две части примерно одинакового размера (`left`, `right`).
 
         - Каждая из получившихся частей сортируется отдельно тем же алгоритмом.
 
-        - Два упорядоченных массива половинного размера соединяются в один.
+        - Два упорядоченных списка половинного размера соединяются в один.
 
-        - Возвращается отсортированный по возрастанию массив.
+        - Возвращается отсортированный по возрастанию список.
     &#34;&#34;&#34;
-    if len(arr) == 1 or len(arr) == 0:
-        return arr
-    left = self.mergesort(arr[:len(arr) // 2])
-    right = self.mergesort(arr[(len(arr) // 2) + 1:])
+    if len(list) == 1 or len(list) == 0:
+        return list
+    left = self.mergesort(list[:len(list) // 2])
+    right = self.mergesort(list[(len(list) // 2) + 1:])
     n = m = 0
-    sorted_arr = []
+    sorted_list = []
     while n &lt; len(left) and m &lt; len(right):
         if left[n] &lt;= right[m]:
-            sorted_arr.append(left[n])
+            sorted_list.append(left[n])
             n += 1
         else:
-            sorted_arr.append(right[m])
+            sorted_list.append(right[m])
             m += 1
     while n &lt; len(left):
-        sorted_arr.append(left[n])
+        sorted_list.append(left[n])
         n += 1
     while m &lt; len(right):
-        sorted_arr.append(right[m])
+        sorted_list.append(right[m])
         m += 1
-    return sorted_arr</code></pre>
+    return sorted_list</code></pre>
 </details>
 </dd>
 <dt id="sort.Sorting.quicksort"><code class="name flex">
-<span>def <span class="ident">quicksort</span></span>(<span>self, arr)</span>
+<span>def <span class="ident">quicksort</span></span>(<span>self, list)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>Метод быстрой сортировки.</strong></p>
-<p>На вход подается неотсортированный массив <code>arr</code>.</p>
-<p>На выход - отсортированныый по возрастанию.</p>
+<p>На вход подается неотсортированный список <code>list</code>.</p>
+<p>На выход - отсортированный по возрастанию.</p>
 <p><strong>Алгоритм сортировки:</strong></p>
 <ul>
 <li>
-<p>Выбрать из массива элемент, называемый опорным - <code>pivot</code>.</p>
+<p>Выбрать из списка элемент, называемый опорным - <code>pivot</code>.</p>
 </li>
 <li>
-<p>Сравнить все остальные элементы с опорным и переставить их в массиве так, чтобы разбить массив на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (<code>lesser</code>), «равные» и «большие» (<code>greater</code>).</p>
+<p>Сравнить все остальные элементы с опорным и переставить их в списке так, чтобы разбить список на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (<code>lesser</code>), «равные» и «большие» (<code>greater</code>).</p>
 </li>
 <li>
 <p>Для отрезков «меньших» и «больших» значений выполнить рекурсивно ту же последовательность операций, если длина отрезка больше единицы.</p>
 </li>
 <li>
-<p>Вернуть отсортированный по возрастанию массив.</p>
+<p>Вернуть отсортированный по возрастанию список.</p>
 </li>
 </ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def quicksort(self, arr):
+<pre><code class="python">def quicksort(self, list):
     &#34;&#34;&#34;
         **Метод быстрой сортировки.**
 
-        На вход подается неотсортированный массив `arr`.
+        На вход подается неотсортированный список `list`.
 
-        На выход - отсортированныый по возрастанию.
+        На выход - отсортированный по возрастанию.
 
 
         **Алгоритм сортировки:**
 
-        - Выбрать из массива элемент, называемый опорным - `pivot`.
+        - Выбрать из списка элемент, называемый опорным - `pivot`.
 
-        - Сравнить все остальные элементы с опорным и переставить их в массиве так, чтобы разбить массив на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (`lesser`), «равные» и «большие» (`greater`).
+        - Сравнить все остальные элементы с опорным и переставить их в списке так, чтобы разбить список на три непрерывных отрезка, следующих друг за другом: «элементы меньшие опорного» (`lesser`), «равные» и «большие» (`greater`).
 
         - Для отрезков «меньших» и «больших» значений выполнить рекурсивно ту же последовательность операций, если длина отрезка больше единицы.
 
-        - Вернуть отсортированный по возрастанию массив.
+        - Вернуть отсортированный по возрастанию список.
     &#34;&#34;&#34;
     lesser = []
     greater = []
-    pivot = arr[0]
-    for i in range(len(arr)):
-        if arr[i] &lt; pivot:
-            lesser.append(arr[i])
-        if arr[i] &gt; pivot:
-            greater.append(arr[i])
+    pivot = list[0]
+    for i in range(len(list)):
+        if list[i] &lt; pivot:
+            lesser.append(list[i])
+        if list[i] &gt; pivot:
+            greater.append(list[i])
     if lesser:
         lesser = self.quicksort(lesser)
     if greater:
